@@ -1,7 +1,8 @@
 class place():
     geometry:dict
     id:str
-    properties:dict
+    place:str
+    n_people:int
 
     def __eq__(self, other):
         if(isinstance(other,place)):

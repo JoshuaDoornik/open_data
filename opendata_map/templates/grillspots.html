@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<table style="width:100%">
-    <tr>
-        <td>
+    <ul id="grillspots">
+        {% for item in datamap %}
+           <li>{{ item.place }}</li>
+           <li> {{ item.n_people }} </li>
 
-    </td>
-    </tr>
-</table>
+    {% endfor %}
+    </ul>
 </body>
 </html>
