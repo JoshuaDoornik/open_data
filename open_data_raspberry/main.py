@@ -87,23 +87,8 @@ if __name__ == '__main__':
 
     print('Mapping...')
     lst = map_network()
-    location = json.loads("""{
-    	"type": "Feature",
-    	"id": "GRILLPLATZOGD.2888",
-    	"geometry": {
-    		"type": "Point",
-    		"coordinates": [16.43035858527145, 48.21479608748624]
-    	},
-    	"geometry_name": "SHAPE",
-    	"properties": {
-    		"OBJECTID": 2888,
-    		"LAGE": "22., Donauinsel, 750 Meter stromauf der Donaustadtbrücke (rechtes Ufer der Neuen Donau stromauf Wehr 1 - Uferbegleitweg)",
-    		"GRILLPLATZ_ID": 9,
-    		"RESERVIERUNG": "ja",
-    		"WEBLINK1": "http://www.wien.gv.at/amtshelfer/umwelt/wasserbau/donauinsel/grillplatzreservierung.html",
-    		"SE_ANNO_CAD_DATA": null
-    	}
-    }""")
+    with open('locationdata.json') as f:
+        location = json.load(f)
     location['amount'] = len(lst)
     r = requests.post("http://127.0.0.1:5000/store",json=location)
     print(r.status_code)
