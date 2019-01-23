@@ -3,8 +3,10 @@ import multiprocessing
 import subprocess
 import os
 import sys
+import time
 import requests
 import json
+import hashlib
 
 
 def pinger(job_q, results_q):
@@ -75,20 +77,33 @@ def map_network(pool_size=255):
     for p in pool:
         p.join()
 
-    # collect he results
+    # collect the results
     while not results.empty():
         ip = results.get()
         ip_list.append(ip)
 
     return ip_list
 
-
-if __name__ == '__main__':
-
-    print('Mapping...')
-    lst = map_network()
+def send(lst):
     with open('locationdata.json') as f:
         location = json.load(f)
     location['amount'] = len(lst)
-    r = requests.post("http://127.0.0.1:5000/store",json=location)
-    print(r.status_code)
+    location['ips'] = lst
+    location['timestamp'] = time.time()
+    try:
+        r = requests.post("http://127.0.0.1:5000/store",json=location)
+        print(r.status_code)
+    except requests.exceptions.ConnectionError:
+        print("couldnt connect to main server")
+
+if __name__ == '__main__':
+    devices = subprocess.Popen(['arp -an'],shell=True,stdout=subprocess.PIPE,universal_newlines=True).communicate()[0]
+    lst = str(devices).split('\n')
+    print(len(lst))
+    hash_func = lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()
+    lst = list(map(hash_func, lst))
+    send(lst)
+
+
+
+
