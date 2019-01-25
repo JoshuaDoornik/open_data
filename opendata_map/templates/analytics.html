@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <div>{{name}}</div>
-    <div>on average there are {{amount}} people here</div>
-    <div>people stay for {{stay_time}} amount of time</div>
-    <div>people tend to arrive in groups of {{group_size}}</div>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" id="bootstrap-css">
+        <link href="/static/custom.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{{url_for('index')}}">Home</a></li>
+      <li><a href="{{url_for('display_grill_spots')}}">all grillspots</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row row-tile">
+    <div class="col-md-8 tile">
+      <div class="row row-tile text-white">
+        <div class="col-sm-3 col-xs-6 tile square ">
+          <div class="tile-content">
+            temp
+          </div>
+        </div>
+          <div class="col-sm-3 col-xs-6 tile square ">
+          <div class="tile-content">
+            amount of people
+          </div>
+        </div>
+          <div class="col-sm-3 col-xs-6 tile square ">
+          <div class="tile-content">
+            forecast
+          </div>
+        </div>
+          <div class="col-sm-3 col-xs-6 tile square ">
+          <div class="tile-content">
+            groupsize
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
 </body>
 </html>

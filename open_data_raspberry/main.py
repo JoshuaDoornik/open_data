@@ -7,7 +7,7 @@ import time
 import requests
 import json
 import hashlib
-
+from pprint import pprint
 
 def pinger(job_q, results_q):
     """
@@ -97,12 +97,21 @@ def send(lst):
         print("couldnt connect to main server")
 
 if __name__ == '__main__':
-    devices = subprocess.Popen(['arp -an'],shell=True,stdout=subprocess.PIPE,universal_newlines=True).communicate()[0]
-    lst = str(devices).split('\n')
-    print(len(lst))
+    #to make linux build an arp table, we ping every device on our local subnet.
+    #we would normally use ping --broadcast, but that will most likely get you kicked off the network
+    ip_adresses = map_network()
+    ip_adresses.remove(get_my_ip())
+    print(ip_adresses)
+    devices = []
+    #do an arp lookup for every available adress on our subnet
+    for ip in ip_adresses:
+        devices.append( subprocess.Popen(['arp -an {}'.format(ip)],shell=True,stdout=subprocess.PIPE,universal_newlines=True).communicate()[0])
+
+    #hash every result. this isn't so much for hiding identity as it is to make an easy identifyable handle for every device.
     hash_func = lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()
-    lst = list(map(hash_func, lst))
-    send(lst)
+    hashes = list(map(hash_func, devices))
+    pprint(hashes)
+    send(hashes)
 
 
 

@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 datamap = grill_historics()
 @app.route('/')
-def hello_world():
+def index():
     return 'Hello World!'
 
 @app.route('/store',methods=['POST'])
@@ -39,8 +39,9 @@ def calc_stay_time(history):
             ips_left  =tracked - inter
             for ip in ips_left:
                 stay_times.append((measurement['timestamp'] - find_appear_date(ip,history)))
-        diff = measurement - tracked
-        tracked = (tracked - inter).union(diff)
+
+        #assume no messages go missing and we dont need to correct for errors
+        tracked = measurement
 
     if len(stay_times) >1:
         return (sum(stay_times) / len(stay_times)) / 60
@@ -61,10 +62,7 @@ def analytics(grill_id):
     if not history:
         return "no information about this grillspot available"
     avg_amount_people = 0
-    avg_stay_time = 0
-    meantime = 0
     change_people = []
-    prev = history[0]
 
     for measurement in history:
         #figure out average amount of people

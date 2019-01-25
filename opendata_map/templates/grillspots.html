@@ -2,22 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>grillspot info</title>
 </head>
 <body>
-    <table style="width:100%">
+    <table class="table">
+          <thead>
           <tr>
-              <th>place</th>
-              <th>amount of people there</th>
-              <th> analytics</th>
+              <th scope="col">index</th>
+              <th scope="col">place</th>
+              <th scope="col">amount of people there</th>
+              <th scope="col"> analytics</th>
           </tr>
+            </thead>
+          <tbody>
         {% for item in datamap %}
         <tr>
+            <th scope="row">{{loop.index}}</th>
            <td>{{ item['properties']['LAGE'] }}</td>
            <td>{{ item.amount }}</td>
             <td><a href ="{{url_for('analytics' , grill_id=item.id)}}">Analytics</a></td>
         </tr>
         {% endfor %}
+          </tbody>
     </table>
 </body>
 </html>
