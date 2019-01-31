@@ -95,6 +95,8 @@ def send(lst):
         print(r.status_code)
     except requests.exceptions.ConnectionError:
         print("couldnt connect to main server")
+    pprint(location)
+
 
 if __name__ == '__main__':
     #to make linux build an arp table, we ping every device on our local subnet.
@@ -110,7 +112,6 @@ if __name__ == '__main__':
     #hash every result. this isn't so much for hiding identity as it is to make an easy identifyable handle for every device.
     hash_func = lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()
     hashes = list(map(hash_func, devices))
-    pprint(hashes)
     send(hashes)
 
 

@@ -14,14 +14,12 @@ class grill_historics():
 
 
     def append(self,grill):
-        pprint(self.measurements)
         for items in self.measurements:
             if items:
                 if 'id' in grill and items[0]['id'] == grill['id']:
                     items.append(grill)
-                    break
-            else:
-                self.measurements.append([grill])
+                    return
+        self.measurements.append([grill])
 
 
     def get_grill(self,grill_id):
