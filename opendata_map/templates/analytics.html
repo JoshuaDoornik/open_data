@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Grillspot analytics</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" id="bootstrap-css">
@@ -13,7 +13,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#">CoolOpenDataSite</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="{{url_for('index')}}">Home</a></li>
@@ -24,32 +24,26 @@
 
 
 <div class="container">
-  <div class="row row-tile">
-    <div class="col-md-8 tile">
-      <div class="row row-tile text-white">
-        <div class="col-sm-3 col-xs-6 tile square ">
-          <div class="tile-content">
-            temp
-          </div>
-        </div>
-          <div class="col-sm-3 col-xs-6 tile square ">
-          <div class="tile-content">
-            amount of people
-          </div>
-        </div>
-          <div class="col-sm-3 col-xs-6 tile square ">
-          <div class="tile-content">
-            forecast
-          </div>
-        </div>
-          <div class="col-sm-3 col-xs-6 tile square ">
-          <div class="tile-content">
-            groupsize
-          </div>
-        </div>
+  <div class="row row-tile blockrow">
+      <div class ="block">
+      <p class="h6">forecast</p>
+      {{forecast_data}}
+      </div>
+      <div class ="block">
+    <pclass="h6">there are currently {{amount}} people here</p>
+      </div>
+      <div class ="block">
+            <p class="h6">on average there are {{average}} people here</p>
+      </div>
+      <div class ="block">
+        <P class="'h6">people tend to stay for {{stay_time}} minutes</P>
+      </div>
+    <div>
+      <div class ="block">
+        <P class="'h6">people come in groups of {{group_size}}</P>
       </div>
     </div>
-    </div>
+  </div>
   </div>
 </body>
 </html>
