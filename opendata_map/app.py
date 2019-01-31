@@ -11,7 +11,8 @@ app = Flask(__name__)
 datamap = grill_historics()
 @app.route('/')
 def index():
-    return 'Hello World!'
+    data = datamap.get_heads()
+    return render_template('grillspots.html',datamap=data)
 
 @app.route('/store',methods=['POST'])
 def store_data():
@@ -32,12 +33,13 @@ def calc_stay_time(history):
     tracked = set(history[0]['ips'])
     stay_times = []
     for measurement in history:
+        curr_timestamp = measurement['timestamp']
         measurement = set(measurement['ips'])
         inter = tracked.intersection(measurement)
         if inter:
             ips_left  =tracked - inter
             for ip in ips_left:
-                stay_times.append(measurement['timestamp'] - find_appear_date(ip,history))
+                stay_times.append(curr_timestamp - find_appear_date(ip,history))
 
         #assume no messages go missing and we dont need to correct for errors
         tracked = measurement
