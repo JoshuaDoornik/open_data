@@ -1,0 +1,13 @@
+.block {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    margin: 10px;
+}
+
+.blockrow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
